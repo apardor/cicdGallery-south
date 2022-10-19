@@ -1,36 +1,57 @@
 import example from '../images/example.jpg'
 import './styles/main.scss'
-// Create a class property without a constructor
-class Game {
-  name = 'Violin Charades'
-}
-const myGame = new Game()
-// Create paragraph node
-const p = document.createElement('p')
-p.textContent = `I like ${myGame.name}.`
 
-// Create heading node
-const heading = document.createElement('h1')
-heading.textContent = 'Interesting!'
+const header = document.createElement('header')
 
-const img = document.createElement('img')
-img.setAttribute('src', example);
+const nav = document.createElement('nav');
+header.append(nav);
+
+const logo = document.createElement('h1')
+logo.textContent = 'LOGO!';
+nav.append(logo);
+
+const main = document.createElement('main');
+const section = document.createElement('section');
+
+const form = document.createElement('form');
+form.setAttribute('action', '/');
+section.append(form);
+
+const input = document.createElement('input');
+input.setAttribute('type', 'text');
+form.append(input);
+
+const imageSection = document.createElement('section');
+imageSection.setAttribute('class', 'image-section');
+main.append(section, imageSection);
+
+
 
 // Append heading node to the DOM
 const app = document.querySelector('#root')
-app.append(heading, p, img)
+const footer = document.createElement('footer');
+const imageFooter = document.createElement('img');
+imageFooter.setAttribute('src', example)
+imageFooter.setAttribute('alt', 'github logo');
+footer.append(imageFooter);
+app.append(header, main, footer)
 
 const retrieveData = async () =>{
-  const response = await fetch('https://api.unsplash.com/search/photos?query=london&client_id=VuZcp_-aJVs8boOKxDfB7l4toXLboZFWW7jPl2Abbpk', {
-    headers: {
-      Accept: 'application/json'
-      // Authentication: '373620 VuZcp_-aJVs8boOKxDfB7l4toXLboZFWW7jPl2Abbpk',
-    }
-  });
+  const response = await fetch('https://api.unsplash.com/search/photos?query=london&client_id=VuZcp_-aJVs8boOKxDfB7l4toXLboZFWW7jPl2Abbpk');
   const data = await response.json();
   return data;
 }
 
+const imageGrid = image => {
+  const article = document.createElement('article');
+  const img = document.createElement('img');
+  article.append(img)
+  img.setAttribute('src', image)
+  img.setAttribute('alt', 'article image');
+  imageSection.append(article)
+}
+
 retrieveData().then((data) => {
-  console.log(data);
+  data.results.forEach(el => imageGrid(el.urls.thumb));
 })
+
