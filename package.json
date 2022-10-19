@@ -1,0 +1,32 @@
+{
+  "name": "cicdgallery-south",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apardor/cicdGallery-south.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/apardor/cicdGallery-south/issues"
+  },
+  "homepage": "https://github.com/apardor/cicdGallery-south#readme",
+  "devDependencies": {
+    "eslint": "^7.23.0",
+    "eslint-config-salt": "^1.1.0",
+    "eslint-plugin-import": "^2.22.1",
+    "html-webpack-plugin": "^5.5.0",
+    "jest": "^29.2.1",
+    "jsdom": "^20.0.1",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  }
+}
