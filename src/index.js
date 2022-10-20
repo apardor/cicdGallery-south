@@ -3,9 +3,8 @@ import './styles/main.scss'
 
 let state = {
   logo: 'Logo!',
-  search: ''
 };
-let count = window.history.state?.count || 0;
+
 const template = (state) => {
   if (state) {
     return `
@@ -17,13 +16,15 @@ const template = (state) => {
     </header>
     <main>
       <section>
-        <form action="/"><input onchange="searchFunc(event)" type="text">
+        <form onsubmit="return false;"><input onchange="searchFunc(event)" type="text">
         </form>
       </section>
       <section>
-        <article>
-          <img src=${state.search} alt="">
-        </article>
+        ${state.imgs? state.imgs.map(el => {
+          return `<article>
+            <img src=${el.urls.thumb} alt="">
+          </article>`
+        }).join(''): ''}
       </section>
     </main>
     <footer>
@@ -35,11 +36,13 @@ const template = (state) => {
 const render = (htmlString, el) => {
   el.innerHTML = htmlString;
 };
+
 const update = (newState) => {
+  console.log(newState, 'update state')
   window.history.pushState(
     {  ...state, ...newState },
     "HISTORY",
-    `index.html#${count}`
+    `index.html${newState ? '#' + newState.query : ''}`
 ),
   window.dispatchEvent(new Event("statechange"));
 };
@@ -47,7 +50,7 @@ window.addEventListener("statechange", (e) => {
   render(template(window.history.state), document.querySelector("#root"));
 });
 
-// update();
+update();
 
 render(template(window.history.state), document.querySelector("#root"));
 
@@ -58,5 +61,5 @@ const retrieveData = async (query) =>{
 }
 
 window.searchFunc = function (event){
-  retrieveData(event.target.value).then(data =>  data.results.forEach(el => update({search: el.urls.thumb})))
+  retrieveData(event.target.value).then(data => update({imgs: data.results, query: event.target.value}))
  }
