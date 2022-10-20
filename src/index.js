@@ -1,4 +1,4 @@
-import example from '../images/example.jpg'
+import example from '../images/githubFooter.svg'
 import './styles/main.scss'
 
 const header = document.createElement('header')
@@ -18,8 +18,10 @@ form.setAttribute('action', '/');
 section.append(form);
 
 const input = document.createElement('input');
+input.setAttribute('id', 'contentSearch');
 input.setAttribute('type', 'text');
 form.append(input);
+
 
 const imageSection = document.createElement('section');
 imageSection.setAttribute('class', 'image-section');
@@ -30,10 +32,10 @@ main.append(section, imageSection);
 // Append heading node to the DOM
 const app = document.querySelector('#root')
 const footer = document.createElement('footer');
-const imageFooter = document.createElement('img');
-imageFooter.setAttribute('src', example)
-imageFooter.setAttribute('alt', 'github logo');
-footer.append(imageFooter);
+const svgFooter = document.createElement('img');
+svgFooter.setAttribute('src', example)
+svgFooter.setAttribute('alt', 'github logo');
+footer.append(svgFooter);
 app.append(header, main, footer)
 
 const retrieveData = async () =>{
